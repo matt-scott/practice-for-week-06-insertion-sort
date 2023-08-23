@@ -3,7 +3,6 @@
 function insertionSort(arr) {
   /*
   Pseudocode:
-
   Copy the original array
   Create an array to store the sorted values
   While the array is not empty:
@@ -17,9 +16,35 @@ function insertionSort(arr) {
   - Insert the unsorted value at the break point
   Return the sorted array
   */
+  let arrCopy = arr.map(el => el);
+  let arrSorted = [];
 
-  // Your code here
+  while (arrCopy.length !== 0) {
+    console.log(arrSorted.join(','));
+    let valueToSort = arrCopy.pop();
+    arrSorted.push(null);
+
+    let i = arrSorted.length - 2;
+    while (arrSorted[i] > valueToSort) {
+      if (i === -1) {
+        arrSorted[0] = valueToSory;
+      }
+      else if (i === 0) {
+        arrSorted[1] = arrSorted[0];
+        arrSorted[0] = valueToSort;
+      }
+      else {
+        [arrSorted[i], arrSorted[i + 1]] = [arrSorted[i + 1], arrSorted[i]]
+      }
+      i--;
+    }
+
+    arrSorted[i+1] = valueToSort;
+  }
+
+  return arrSorted;
 }
+
 
 // In-place Insertion Sort
 // Mutates the original array
@@ -40,7 +65,41 @@ function insertionSortInPlace(arr) {
   Return the mutated array
   */
 
-  // Your code here
+  let pointer = 1;
+  let unsortedHalfCount = (arr.length) - pointer;
+
+  while (unsortedHalfCount) {
+    console.log(arr.join(','));
+
+
+    let currentVal = arr[pointer];
+
+    if (pointer === 0) {
+      arr[pointer] = currentVal;
+    }
+    else {
+      let i = pointer;
+      while (arr[i - 1] > currentVal) {
+        arr[i] = arr[i - 1];
+        if (i === 1) {
+          arr[i] = arr[i - 1];
+          arr[i - 1] = currentVal;
+        }
+        i--;
+      }
+      arr[i] = currentVal;
+    } 
+
+    pointer++;
+    unsortedHalfCount = (arr.length) - pointer;
+  }
+  return arr;
+
 }
+
+// arr = [2,4,6,8,1,3,5,7,9];
+// let x = insertionSortInPlace(arr);
+// console.log('final')
+// console.log(x.join(','));
 
 module.exports = [insertionSort, insertionSortInPlace];
